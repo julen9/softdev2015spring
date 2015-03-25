@@ -1,5 +1,5 @@
 #pragma once
-class Cell
+class Cell : public CObject
 {
 public:
 	enum State{
@@ -8,7 +8,9 @@ public:
 private:
 	State state;
 public:
+	DECLARE_SERIAL(Cell)
 	Cell();
 	~Cell();
+	void Serialize(CArchive& archive);
 };
 
