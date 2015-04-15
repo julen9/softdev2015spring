@@ -8,7 +8,11 @@ class Table : public CObject
 public:
 	DECLARE_SERIAL(Table)
 	Table();
+	Table(CSize size);
+	Table(const Table& o);
 	~Table();
 	void Serialize(CArchive& archive);
+
+	Table& operator=(const Table& o);
 };
 

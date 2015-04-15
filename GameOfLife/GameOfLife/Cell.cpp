@@ -2,7 +2,7 @@
 #include "Cell.h"
 
 
-Cell::Cell()
+Cell::Cell() : state(DEAD)
 {
 }
 
@@ -22,6 +22,18 @@ void Cell::Serialize(CArchive& archive)
 		archive >> s;
 		state = (State)s;
 	}
+}
+
+
+Cell::Cell(const Cell& o) : state(o.state)
+{
+}
+
+Cell& Cell::operator = (const Cell& o) {
+	if (this != &o) {
+		state = o.state;
+	}
+	return *this;
 }
 
 IMPLEMENT_SERIAL(Cell, CObject, 1)

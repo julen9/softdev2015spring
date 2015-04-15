@@ -27,11 +27,13 @@ END_MESSAGE_MAP()
 
 // CGameOfLifeDoc construction/destruction
 
-CGameOfLifeDoc::CGameOfLifeDoc()
+CGameOfLifeDoc::CGameOfLifeDoc() : table(DEFSIZE)
 {
 	// TODO: add one-time construction code here
 
 }
+
+const CSize CGameOfLifeDoc::DEFSIZE = CSize(15,15);
 
 CGameOfLifeDoc::~CGameOfLifeDoc()
 {
@@ -45,6 +47,9 @@ BOOL CGameOfLifeDoc::OnNewDocument()
 	// TODO: add reinitialization code here
 	// (SDI documents will reuse this document)
 
+	// TODO: set size
+	table = Table();
+
 	return TRUE;
 }
 
@@ -57,10 +62,12 @@ void CGameOfLifeDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
+		table.Serialize(ar);
 		// TODO: add storing code here
 	}
 	else
 	{
+		table.Serialize(ar);
 		// TODO: add loading code here
 	}
 }

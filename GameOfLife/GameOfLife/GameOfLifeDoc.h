@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "Table.h"
 
 class CGameOfLifeDoc : public CDocument
 {
@@ -14,6 +15,10 @@ protected: // create from serialization only
 
 // Attributes
 public:
+
+private:
+	Table table;
+	static const CSize DEFSIZE;
 
 // Operations
 public:
