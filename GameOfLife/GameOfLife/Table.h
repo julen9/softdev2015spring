@@ -14,5 +14,8 @@ public:
 	void Serialize(CArchive& archive);
 
 	Table& operator=(const Table& o);
+
+private:
+	void copyTable(const Table& o);
 };
 
