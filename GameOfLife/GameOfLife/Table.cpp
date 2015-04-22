@@ -8,20 +8,20 @@ Table::Table()
 
 Table::Table(CSize size) : size(size)
 {
-	cells.SetSize(size.cx);
+	cells.resize(size.cx);
 	for (LONG i = 0; i < size.cx; ++i) {
-		cells[i].SetSize(size.cy);
+		cells[i].resize(size.cy);
 	}
 }
 
-Table::Table(const Table& o)
+Table::Table(const Table& o) : size(o.size), cells(o.cells)
 {
-	copyTable(o);
 }
 
 Table& Table::operator = (const Table& o) {
 	if (this != &o) {
-		copyTable(o);
+		size = o.size;
+		cells = o.cells;
 	}
 	return *this;
 }
@@ -36,22 +36,19 @@ void Table::Serialize(CArchive& archive)
 
 	if (archive.IsStoring()) {
 		archive << size;
-		cells.Serialize(archive);
+		for (LONG i = 0; i < size.cx; ++i) {
+			for (LONG j = 0; j < size.cy; ++j) {
+				cells[i][j].Serialize(archive);
+			}
+		}
 	}
 	else
 	{
 		archive >> size;
-		cells.Serialize(archive);
-	}
-}
-
-void Table::copyTable(const Table& o) {
-	size = o.size;
-	cells.SetSize(size.cx);
-	for (LONG i = 0; i < size.cx; ++i) {
-		cells[i].SetSize(size.cy);
-		for (LONG j = 0; j < size.cy; ++j) {
-			cells[i][j] = o.cells[i][j];
+		for (LONG i = 0; i < size.cx; ++i) {
+			for (LONG j = 0; j < size.cy; ++j) {
+				cells[i][j].Serialize(archive);
+			}
 		}
 	}
 }

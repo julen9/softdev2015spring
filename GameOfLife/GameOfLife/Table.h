@@ -1,10 +1,11 @@
 #pragma once
+#include <vector>
 #include "Cell.h"
 
 class Table : public CObject
 {
 	CSize size;
-	CArray<CArray<Cell>> cells;
+	std::vector<std::vector<Cell>> cells;
 public:
 	DECLARE_SERIAL(Table)
 	Table();
@@ -15,7 +16,5 @@ public:
 
 	Table& operator=(const Table& o);
 
-private:
-	void copyTable(const Table& o);
 };
 
