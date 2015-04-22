@@ -29,6 +29,9 @@ Table& Table::operator = (const Table& o) {
 Table::~Table()
 {
 }
+Cell& Table::at(const int& x, const int &y){
+	return cells[x].at(y);
+}
 
 void Table::Serialize(CArchive& archive)
 {
@@ -52,5 +55,9 @@ void Table::Serialize(CArchive& archive)
 		}
 	}
 }
-
 IMPLEMENT_SERIAL(Table, CObject, 1)
+
+
+CSize& Table::getSize(){
+	return size;
+}

@@ -12,6 +12,9 @@
 #include "GameOfLifeDoc.h"
 
 #include <propkey.h>
+#include <cstdlib>
+#include <iostream>
+#include <ctime>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -46,9 +49,20 @@ BOOL CGameOfLifeDoc::OnNewDocument()
 
 	// TODO: add reinitialization code here
 	// (SDI documents will reuse this document)
-
+	std::srand(std::time(0)); // use current time as seed for random generator
 	// TODO: set size
-	table = Table();
+	for (int i = 0; i < table.getSize().cx; i++){
+		for (int j = 0; j < table.getSize().cy; j++){
+
+			int random_variable = std::rand();
+			if (random_variable % 100 < 20){
+				table.at(i, j).setState(Cell::State::DEAD);
+			} else{
+				table.at(i, j).setState(Cell::State::LIVING);
+			}
+
+		}
+	}
 
 	return TRUE;
 }
@@ -140,5 +154,7 @@ void CGameOfLifeDoc::Dump(CDumpContext& dc) const
 }
 #endif //_DEBUG
 
-
+Table& CGameOfLifeDoc::getTable(){
+	return table;
+}
 // CGameOfLifeDoc commands

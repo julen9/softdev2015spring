@@ -37,3 +37,12 @@ Cell& Cell::operator = (const Cell& o) {
 }
 
 IMPLEMENT_SERIAL(Cell, CObject, 1)
+
+void Cell::setState(State s){
+	state = s;
+}
+
+
+bool Cell::is(State s){
+	return state == s;
+}

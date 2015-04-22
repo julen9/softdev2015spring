@@ -22,6 +22,7 @@
 IMPLEMENT_DYNCREATE(CGameOfLifeView, CFormView)
 
 BEGIN_MESSAGE_MAP(CGameOfLifeView, CFormView)
+	ON_BN_CLICKED(IDC_BUTTON1, &CGameOfLifeView::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 // CGameOfLifeView construction/destruction
@@ -81,3 +82,34 @@ CGameOfLifeDoc* CGameOfLifeView::GetDocument() const // non-debug version is inl
 
 
 // CGameOfLifeView message handlers
+
+
+void CGameOfLifeView::OnBnClickedOk()
+{
+	// TODO: Add your control notification handler code here
+}
+#define RECT_WIDTH 15
+#define RECT_HEIGHT 15
+void CGameOfLifeView::OnDraw(CDC* pDC){
+	CGameOfLifeDoc *doc = GetDocument();
+
+	CBrush livingBrush(RGB(255, 0, 255));
+	CBrush deadBrush(RGB(255, 255, 0));
+	CBrush* oldBrush;
+
+	for (int i = 0; i < doc->getTable().getSize().cx; i++){
+		for (int j = 0; j < doc->getTable().getSize().cy; j++){
+
+			if (doc->getTable().at(i, j).is(Cell::State::LIVING)){
+				oldBrush = pDC->SelectObject(&livingBrush);	
+			} else {
+				oldBrush = pDC->SelectObject(&deadBrush);
+			}
+
+			pDC->Rectangle(i * RECT_WIDTH, j*RECT_HEIGHT, i * RECT_WIDTH + RECT_WIDTH, j * RECT_HEIGHT + RECT_HEIGHT);
+			pDC->SelectObject(oldBrush);
+
+		}
+	}
+
+}

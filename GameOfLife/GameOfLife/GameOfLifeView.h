@@ -29,6 +29,7 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual void OnInitialUpdate(); // called first time after construct
+	virtual void OnDraw(CDC* pDC);
 
 // Implementation
 public:
@@ -43,6 +44,8 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedOk();
 };
 
 #ifndef _DEBUG  // debug version in GameOfLifeView.cpp

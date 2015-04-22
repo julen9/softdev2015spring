@@ -22,7 +22,7 @@ private:
 
 // Operations
 public:
-
+	Table& getTable();
 // Overrides
 public:
 	virtual BOOL OnNewDocument();

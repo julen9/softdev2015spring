@@ -14,6 +14,9 @@ public:
 	~Cell();
 	void Serialize(CArchive& archive);
 
+	void setState(State s);
+	bool is(State s);
+
 	Cell& operator=(const Cell& o);
 };
 

@@ -14,6 +14,8 @@ public:
 	~Table();
 	void Serialize(CArchive& archive);
 
+	CSize& getSize();
+	Cell& at(const int& x, const int &y);
 	Table& operator=(const Table& o);
 
 };
