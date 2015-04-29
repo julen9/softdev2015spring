@@ -23,6 +23,7 @@ private:
 // Operations
 public:
 	Table& getTable();
+	void CreateNewTable(const CSize& size);
 // Overrides
 public:
 	virtual BOOL OnNewDocument();

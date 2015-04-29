@@ -46,29 +46,31 @@ BOOL CGameOfLifeDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
 		return FALSE;
-
-	// TODO: add reinitialization code here
-	// (SDI documents will reuse this document)
-	std::srand(std::time(0)); // use current time as seed for random generator
-	// TODO: set size
-	for (int i = 0; i < table.getSize().cx; i++){
-		for (int j = 0; j < table.getSize().cy; j++){
-
-			int random_variable = std::rand();
-			if (random_variable % 100 < 20){
-				table.at(i, j).setState(Cell::State::DEAD);
-			} else{
-				table.at(i, j).setState(Cell::State::LIVING);
-			}
-
-		}
-	}
-
+	CreateNewTable(DEFSIZE);
+	
 	return TRUE;
 }
 
 
+void CGameOfLifeDoc::CreateNewTable(const CSize& size) {
+	Table newTable(size);
+	std::srand(std::time(0)); // use current time as seed for random generator
+	for (int i = 0; i < newTable.getSize().cx; i++){
+		for (int j = 0; j < newTable.getSize().cy; j++){
 
+			int random_variable = std::rand();
+			if (random_variable % 100 < 20){
+				newTable.at(i, j).setState(Cell::State::DEAD);
+			}
+			else{
+				newTable.at(i, j).setState(Cell::State::LIVING);
+			}
+		}
+	}
+
+	table = newTable;
+
+}
 
 // CGameOfLifeDoc serialization
 

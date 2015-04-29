@@ -23,12 +23,17 @@ IMPLEMENT_DYNCREATE(CGameOfLifeView, CFormView)
 
 BEGIN_MESSAGE_MAP(CGameOfLifeView, CFormView)
 	ON_BN_CLICKED(IDC_BUTTON1, &CGameOfLifeView::OnBnClickedOk)
+	ON_EN_CHANGE(IDC_EDIT1, &CGameOfLifeView::OnEnChangeEdit1)
+	ON_EN_CHANGE(IDC_EDIT2, &CGameOfLifeView::OnEnChangeEdit2)
+	ON_BN_CLICKED(IDC_BUTTON2, &CGameOfLifeView::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 // CGameOfLifeView construction/destruction
 
 CGameOfLifeView::CGameOfLifeView()
 	: CFormView(CGameOfLifeView::IDD)
+	, rownum(0)
+	, colnum(0)
 {
 	// TODO: add construction code here
 
@@ -41,6 +46,10 @@ CGameOfLifeView::~CGameOfLifeView()
 void CGameOfLifeView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_EDIT1, rownum);
+	DDV_MinMaxInt(pDX, rownum, 0, 20);
+	DDX_Text(pDX, IDC_EDIT2, colnum);
+	DDV_MinMaxInt(pDX, colnum, 0, 20);
 }
 
 BOOL CGameOfLifeView::PreCreateWindow(CREATESTRUCT& cs)
@@ -111,5 +120,47 @@ void CGameOfLifeView::OnDraw(CDC* pDC){
 
 		}
 	}
+
+}
+
+void CGameOfLifeView::OnEnChangeEdit1()
+{
+	// TODO:  If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CFormView::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+
+	// TODO:  Add your control notification handler code here
+	if (UpdateData()) {
+		CGameOfLifeDoc *doc = GetDocument();
+		CSize size(colnum, rownum);
+		doc->CreateNewTable(size);
+		InvalidateRect(NULL, TRUE);
+		UpdateWindow();
+	}
+}
+
+
+void CGameOfLifeView::OnEnChangeEdit2()
+{
+	// TODO:  If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CFormView::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+
+	// TODO:  Add your control notification handler code here
+	if (UpdateData()) {
+		CGameOfLifeDoc *doc = GetDocument();
+		CSize size(colnum, rownum);
+		doc->CreateNewTable(size);
+		InvalidateRect(NULL, TRUE);
+		UpdateWindow();
+	}
+}
+
+
+void CGameOfLifeView::OnBnClickedButton2()
+{
+	// TODO: Add your control notification handler code here
 
 }

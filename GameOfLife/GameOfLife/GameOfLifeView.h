@@ -46,6 +46,11 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
+	int rownum;
+	int colnum;
+	afx_msg void OnEnChangeEdit1();
+	afx_msg void OnEnChangeEdit2();
+	afx_msg void OnBnClickedButton2();
 };
 
 #ifndef _DEBUG  // debug version in GameOfLifeView.cpp
