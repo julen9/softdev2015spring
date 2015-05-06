@@ -24,6 +24,8 @@ private:
 public:
 	Table& getTable();
 	void CreateNewTable(const CSize& size);
+	void randomize();
+	void setGlider();
 // Overrides
 public:
 	virtual BOOL OnNewDocument();

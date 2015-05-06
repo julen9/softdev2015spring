@@ -47,28 +47,46 @@ BOOL CGameOfLifeDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 	CreateNewTable(DEFSIZE);
-	
+	setGlider();
 	return TRUE;
 }
 
 
-void CGameOfLifeDoc::CreateNewTable(const CSize& size) {
-	Table newTable(size);
+void CGameOfLifeDoc::setGlider() {
+	if (table.getSize().cx >= 4 && table.getSize().cy >= 4) {
+		for (LONG i = 0; i < table.getSize().cx; ++i) {
+			for (LONG j = 0; j < table.getSize().cy; ++j) {
+				table.at(i, j).setState(Cell::DEAD);
+			}
+		}
+		table.at(1, 3).setState(Cell::LIVING);
+		table.at(2, 1).setState(Cell::LIVING);
+		table.at(2, 3).setState(Cell::LIVING);
+		table.at(3, 2).setState(Cell::LIVING);
+		table.at(3, 3).setState(Cell::LIVING);
+	}
+}
+
+
+void CGameOfLifeDoc::randomize() {
 	std::srand(std::time(0)); // use current time as seed for random generator
-	for (int i = 0; i < newTable.getSize().cx; i++){
-		for (int j = 0; j < newTable.getSize().cy; j++){
+	for (int i = 0; i < table.getSize().cx; i++){
+		for (int j = 0; j < table.getSize().cy; j++){
 
 			int random_variable = std::rand();
 			if (random_variable % 100 < 20){
-				newTable.at(i, j).setState(Cell::State::DEAD);
+				table.at(i, j).setState(Cell::State::DEAD);
 			}
 			else{
-				newTable.at(i, j).setState(Cell::State::LIVING);
+				table.at(i, j).setState(Cell::State::LIVING);
 			}
+
 		}
 	}
+}
+void CGameOfLifeDoc::CreateNewTable(const CSize& size) {
 
-	table = newTable;
+	table = Table(size);
 
 }
 

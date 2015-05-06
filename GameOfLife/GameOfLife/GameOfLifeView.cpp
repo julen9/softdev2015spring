@@ -95,7 +95,9 @@ CGameOfLifeDoc* CGameOfLifeView::GetDocument() const // non-debug version is inl
 
 void CGameOfLifeView::OnBnClickedOk()
 {
-	// TODO: Add your control notification handler code here
+	CGameOfLifeDoc *doc = GetDocument();
+	doc->getTable().update();
+	Invalidate();
 }
 #define RECT_WIDTH 15
 #define RECT_HEIGHT 15
@@ -135,6 +137,7 @@ void CGameOfLifeView::OnEnChangeEdit1()
 		CGameOfLifeDoc *doc = GetDocument();
 		CSize size(colnum, rownum);
 		doc->CreateNewTable(size);
+		doc->setGlider();
 		InvalidateRect(NULL, TRUE);
 		UpdateWindow();
 	}
@@ -153,6 +156,7 @@ void CGameOfLifeView::OnEnChangeEdit2()
 		CGameOfLifeDoc *doc = GetDocument();
 		CSize size(colnum, rownum);
 		doc->CreateNewTable(size);
+		doc->setGlider();
 		InvalidateRect(NULL, TRUE);
 		UpdateWindow();
 	}

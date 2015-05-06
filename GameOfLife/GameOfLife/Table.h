@@ -18,5 +18,8 @@ public:
 	Cell& at(const int& x, const int &y);
 	Table& operator=(const Table& o);
 
+	void update();
+	int getEnv(int x, int y);
+
 };
 
